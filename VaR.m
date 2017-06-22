@@ -1,0 +1,15 @@
+function b = VaR(data, P)
+[frequency, N] = histcounts(data, 'Normalization', 'pdf');
+probability = 0;
+b = zeros(1,length(P));
+for j = 1:length(P)
+    if P(j) > b(j);
+        for i = 1:length(frequency)
+            probability = probability + frequency(i)*(N(i+1)-N(i));
+            if probability >= P(j)
+                b(j) = N(i);
+                break;
+            end
+        end
+    end
+end
